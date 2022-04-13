@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="336.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Aplication.Controller">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="User Name">
+         <font>
+            <Font name="Arial Bold" size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userName" layoutY="51.0" prefHeight="26.0" prefWidth="198.0" promptText="user..." />
+      <Label layoutX="14.0" layoutY="86.0" text="Password">
+         <font>
+            <Font name="Arial Bold" size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="password" layoutY="116.0" prefHeight="26.0" prefWidth="198.0" promptText="password...." />
+      <Button fx:id="logIn" layoutY="156.0" mnemonicParsing="false" onAction="#LogIn" text="LogIn" />
+      <Button fx:id="create" layoutX="54.0" layoutY="156.0" mnemonicParsing="false" onAction="#Create_Page" text="Create User" />
+   </children>
+</AnchorPane>
