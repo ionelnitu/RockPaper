@@ -40,7 +40,7 @@ public class Controller {
     ImageView player, computer, playerImage;
 
     @FXML
-  Label points;
+    Label points;
     static Person person = new Person();
 
 
@@ -48,14 +48,13 @@ public class Controller {
     private void LogIn(ActionEvent actionEvent) throws SQLException, IOException {
         person.setPass(password.getText());
         person.setUserName(userName.getText());
-        String points2= String.valueOf(mySql.Points(person.getUserName(),person.getPass()));
+        String points2 = String.valueOf(mySql.Points(person.getUserName(), person.getPass()));
         mySql.logIN(userName.getText(), password.getText());
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/gameFrame.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
@@ -92,7 +91,7 @@ public class Controller {
             alert.setContentText("Win!");
             Integer a = mySql.Points(person.getUserName(), person.getPass());
             Integer b = a + 1;
-            mySql.Update(b,person.getUserName(),person.getPass());
+            mySql.Update(b, person.getUserName(), person.getPass());
             points.setText(String.valueOf(b));
             alert.setGraphic(win);
             alert.showAndWait();
@@ -126,7 +125,7 @@ public class Controller {
             Integer a = mySql.Points(person.getUserName(), person.getPass());
             Integer b = a + 1;
             points.setText(String.valueOf(b));
-            mySql.Update(b,person.getUserName(),person.getPass());
+            mySql.Update(b, person.getUserName(), person.getPass());
             alert.setGraphic(win);
             alert.showAndWait();
         }
@@ -153,22 +152,20 @@ public class Controller {
             Integer a = mySql.Points(person.getUserName(), person.getPass());
             Integer b = a + 1;
             points.setText(String.valueOf(b));
-            mySql.Update(b,person.getUserName(),person.getPass());
+            mySql.Update(b, person.getUserName(), person.getPass());
             alert.setGraphic(win);
             alert.showAndWait();
         }
     }
 
     @FXML
-    public void ChoosePhoto(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/settingsFrame.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-
+    public void ChoosePhoto() throws IOException {
+        FileChooser fileChooser= new FileChooser();
+        File file=fileChooser.showOpenDialog(null);
+        Image image1=new Image(file.toURI().toURL().toString());
+        playerImage.setImage(image1);
     }
+
 
 
 }
