@@ -1,21 +1,21 @@
 package Aplication;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,14 +25,17 @@ import java.sql.SQLException;
 import java.util.EventObject;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
     MySql mySql = new MySql();
     Game game = new Game();
     Image image = new Image("resources/win.gif");
     ImageView win = new ImageView(image);
 
 
+    @FXML
+    Button rock, paper, scissors;
     @FXML
     TextField userName, password, userCreate, passCreate;
 
@@ -43,9 +46,15 @@ public class Controller {
     Label points;
     static Person person = new Person();
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        win.setFitWidth(75);
+        win.setFitHeight(75);
+    }
+
 
     @FXML
-    private void LogIn(ActionEvent actionEvent) throws SQLException, IOException {
+    private void LogIn(ActionEvent actionEvent) throws SQLException, IOException, InterruptedException {
         person.setPass(password.getText());
         person.setUserName(userName.getText());
         String points2 = String.valueOf(mySql.Points(person.getUserName(), person.getPass()));
@@ -55,6 +64,8 @@ public class Controller {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+
     }
 
     @FXML
@@ -72,6 +83,7 @@ public class Controller {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/mainFrame.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+
         stage.setScene(scene);
         stage.show();
     }
@@ -88,10 +100,10 @@ public class Controller {
         } else if (computer.getImage().getUrl().contains("scissors.png")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
-            alert.setContentText("Win!");
             Integer a = mySql.Points(person.getUserName(), person.getPass());
             Integer b = a + 1;
             mySql.Update(b, person.getUserName(), person.getPass());
+            alert.setContentText("Win! Your points now:" + String.valueOf(mySql.Points(person.getUserName(), person.getPass())));
             points.setText(String.valueOf(b));
             alert.setGraphic(win);
             alert.showAndWait();
@@ -160,12 +172,11 @@ public class Controller {
 
     @FXML
     public void ChoosePhoto() throws IOException {
-        FileChooser fileChooser= new FileChooser();
-        File file=fileChooser.showOpenDialog(null);
-        Image image1=new Image(file.toURI().toURL().toString());
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(null);
+        Image image1 = new Image(file.toURI().toURL().toString());
         playerImage.setImage(image1);
     }
 
-
-
 }
+
